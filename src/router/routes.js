@@ -1,9 +1,17 @@
 const routes = [
   {
     path: '/',
+    component: () => import('layouts/Wrapper.vue'),
+    children: [
+      { path: '', component: () => import('src/pages/Login.vue') },
+    ],
+  },
+
+  {
+    path: '/app/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      { path: '', component: () => import('src/pages/Principal.vue') },
     ],
   },
 

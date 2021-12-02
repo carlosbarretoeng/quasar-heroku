@@ -1,46 +1,77 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <q-layout view="hHh Lpr lFr">
+    <q-header>
+      <q-toolbar class="bg-unifagoc-background text-dark">
+        <div class="row">
+          <h5 class="q-ma-none">
+            Quasar App
+          </h5>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+          <q-btn
+            flat
+            dense
+            round
+            icon="menu"
+            aria-label="Menu"
+            @click="toggleLeftDrawer"
+          />
+        </div>
+
+        <q-space/>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
     <q-drawer
+      class="bg-unifagoc-background"
       v-model="leftDrawerOpen"
       show-if-above
-      bordered
     >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
+        <q-item-label header >
+          Home
         </q-item-label>
 
         <EssentialLink
-          v-for="link in essentialLinks"
+          v-for="link in homeLinksList"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label header >
+          Áreas
+        </q-item-label>
+
+        <EssentialLink
+          v-for="link in areasLinksList"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label header >
+          Estatísticas
+        </q-item-label>
+
+        <EssentialLink
+          v-for="link in estatisticasLinksList"
+          :key="link.title"
+          v-bind="link"
+        />
+        <q-item-label header >
+          Contatos
+        </q-item-label>
+
+        <EssentialLink
+          v-for="link in contatosLinksList"
           :key="link.title"
           v-bind="link"
         />
       </q-list>
     </q-drawer>
 
-    <q-page-container>
-      <router-view />
+    <q-page-container id="pageContainer">
+      <div>
+        <router-view />
+      </div>
     </q-page-container>
   </q-layout>
 </template>
@@ -48,48 +79,35 @@
 <script>
 import EssentialLink from 'components/EssentialLink.vue';
 
-const linksList = [
+const homeLinksList = [
   {
     title: 'Docs',
-    caption: 'quasar.dev',
     icon: 'school',
     link: 'https://quasar.dev',
   },
+];
+
+const areasLinksList = [
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
+    title: 'Docs',
+    icon: 'school',
+    link: 'https://quasar.dev',
   },
+];
+
+const estatisticasLinksList = [
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
+    title: 'Docs',
+    icon: 'school',
+    link: 'https://quasar.dev',
   },
+];
+
+const contatosLinksList = [
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
+    title: 'Docs',
+    icon: 'school',
+    link: 'https://quasar.dev',
   },
 ];
 
@@ -106,7 +124,10 @@ export default defineComponent({
     const leftDrawerOpen = ref(false);
 
     return {
-      essentialLinks: linksList,
+      homeLinksList,
+      areasLinksList,
+      estatisticasLinksList,
+      contatosLinksList,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
@@ -115,3 +136,17 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+#pageContainer{
+  margin-left: 32px;
+}
+
+#pageContainer > div{
+  background: white;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  width: calc(100% - 32px);
+  height: calc(100% - 2px);
+}
+</style>
